@@ -1,14 +1,17 @@
 import os
 import time
+import multiprocessing
 
 import requests
 import fake_useragent
 from bs4 import BeautifulSoup
 
-file_list = os.listdir('data')
+file_list = os.listdir('../data')
 data = {}
-if not os.path.exists('metas'):
-    os.mkdir('metas')
+if not os.path.exists('../metas'):
+    os.mkdir('../metas')
+
+# разбить все на методы, сделать метод run(), запустить в multiprocessing
 
 
 def extract_page_data(soup: BeautifulSoup) -> list:
@@ -31,10 +34,10 @@ for file in file_list:
     session = requests.Session()
     user = fake_useragent.UserAgent().random
     headers = {'user-agent': user}
-    file_path = os.path.join('data/', file)
+    file_path = os.path.join('../data/', file)
 
     with open(file_path) as f:
-        with open(f'metas/meta_{file}', 'w', encoding='utf-8') as m:
+        with open(f'../metas/meta_{file}', 'w', encoding='utf-8') as m:
             m.write('URL;Title;H1;Description;Products Quantity;Prod Quantity over 40;Status code\n')
             link_num = 0
             for link in f:
@@ -66,3 +69,14 @@ for file in file_list:
                 link_num += 1
                 print(f'Number of URLs processed: {link_num} ({time.time() - start_time:.2f} seconds)')
     print(f'Data for file {file} was collected')
+
+
+# def separate_large_files():
+#     meta_files = os.listdir('../data')
+#     for file in meta_files:
+#         with open(f'../data/{file}') as f:
+#             for i, l in enumerate(f):
+#                 pass
+#             if i > 1499:
+#                 filenumber = 1
+

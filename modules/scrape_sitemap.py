@@ -4,8 +4,8 @@ import requests
 import fake_useragent
 from bs4 import BeautifulSoup
 
-if not os.path.exists('data'):
-    os.mkdir('data')
+if not os.path.exists('../data'):
+    os.mkdir('../data')
 link = 'https://kasta.ua/sitemap.xml'
 
 session = requests.Session()
@@ -29,7 +29,7 @@ for sitemap in tracking_sitemaps:
     sitemap_content = session.get(sitemap, headers=headers).text
     soup = BeautifulSoup(sitemap_content, 'lxml')
     url_with_tags = soup.find_all('loc')
-    with open('data/' + filename + '.txt', 'w') as f:
+    with open('../data/' + filename + '.txt', 'w') as f:
         for i in url_with_tags:
             url = str(i.contents[0])
             if not '/campaigns/' in url and not '/uk/' in url:

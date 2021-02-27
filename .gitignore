@@ -1,0 +1,13 @@
+.idea/
+Scripts/
+pyvenv.cfg
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+.txt
+
+Lib/
+scrape
+test.py
