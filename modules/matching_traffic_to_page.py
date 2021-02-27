@@ -36,15 +36,17 @@ for file in files_to_match:
                     continue
                 try:
                     traff = traffic_dictionary[url]
+                    data_list.append(traff)
                 except KeyError:
                     continue
-                data_list.append(traff)
+                finally:
+                    data_string = ';'.join(data_list)
+                    m.write(f'{data_string}\n')
 
                 # for key in traffic_dictionary.keys():
                 #     if url == key:
                 #         data_list.append(data_list[0])
-                data_string = ';'.join(data_list)
-                m.write(f'{data_string}\n')
+
 
 
 print(f'{time.time() - start_time:.3f}')
